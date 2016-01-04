@@ -17,6 +17,9 @@
 
 package asterix.atomic
 
+import scala.language.experimental.macros
+import asterix.atomic.macroimpl.AtomicAnyMacros
+
 import scala.annotation.tailrec
 import scala.concurrent.TimeoutException
 import scala.concurrent.duration.FiniteDuration
@@ -56,7 +59,10 @@ final class AtomicAny[T] private (ref: AtomicReference[T]) extends BlockableAtom
       extract
   }
 
-  @tailrec
+  def transformAndExtractMacro[U](cb: (T) => (U, T)): U = macro AtomicAnyMacros.transformAnExtractMacro[T,U]
+
+
+    @tailrec
   def transformAndGet(cb: (T) => T): T = {
     val current = get
     val update = cb(current)
