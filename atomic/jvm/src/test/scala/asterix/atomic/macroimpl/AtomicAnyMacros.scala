@@ -1,6 +1,6 @@
-package asterix.atomic.macroimpl
+package scalax.concurrent.atomic.macroimpl
 
-import asterix.atomic.AtomicAny
+import scalax.concurrent.atomic.AtomicAny
 import minitest.SimpleTestSuite
 
 
