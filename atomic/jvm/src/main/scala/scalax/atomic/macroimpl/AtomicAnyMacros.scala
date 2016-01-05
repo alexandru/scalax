@@ -1,4 +1,4 @@
-package scalax.concurrent.atomic.macroimpl
+package scalax.atomic.macroimpl
 
 import scalax.concurrent.atomic.AtomicAny
 import scala.reflect.macros.blackbox.Context
@@ -8,7 +8,7 @@ object AtomicAnyMacros {
     import c.universe._
 
     val tpe = weakTypeOf[U]
-    val i = new Inliner[c.type](c)
+    val functionInliner = new FunctionInliner[c.type](c)
 
     c.untypecheck(
       q"""
@@ -17,7 +17,7 @@ object AtomicAnyMacros {
 
          while (keepTrying) {
           val current = ${c.prefix.tree}.get
-          val (r, update) = ${i.inlineAndReset(q"$cb(current)")}
+          val (r, update) = ${functionInliner(q"$cb(current)")}
 
           if (${c.prefix.tree}.compareAndSet(current, update)) {
                keepTrying = false

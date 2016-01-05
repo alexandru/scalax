@@ -1,12 +1,13 @@
 package scalax.concurrent.atomic
 
 import scala.language.experimental.macros
-import scalax.concurrent.atomic.macroimpl.AtomicAnyMacros
 
 import scala.annotation.tailrec
 import scala.concurrent.TimeoutException
 import scala.concurrent.duration.FiniteDuration
 import java.util.concurrent.atomic.AtomicReference
+
+import scalax.atomic.macroimpl.AtomicAnyMacros
 
 
 final class AtomicAny[T] private (ref: AtomicReference[T]) extends BlockableAtomic[T] {
