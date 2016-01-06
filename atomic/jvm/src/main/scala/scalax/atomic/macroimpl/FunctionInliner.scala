@@ -10,7 +10,7 @@ class FunctionInliner[C <: Context](val c: C) {
   def inlineParam(paramTermName: TermName, arg: Tree, body: Tree): Tree = new Transformer {
     override def transform(tree: Tree): Tree = tree match {
       case i@Ident(_) if i.name == paramTermName => arg
-        
+
       case _ => super.transform(tree)
     }
   }.transform(body)
