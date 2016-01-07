@@ -13,7 +13,7 @@ object AtomicAnyMacros {
     c.untypecheck(
       q"""
          var keepTrying = true
-         var result: Option[$tpe] = None
+         val result: Option[$tpe] = None
 
          while (keepTrying) {
           val current = ${c.prefix.tree}.get
