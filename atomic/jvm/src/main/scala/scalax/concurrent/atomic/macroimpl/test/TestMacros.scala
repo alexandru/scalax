@@ -1,6 +1,6 @@
-package scalax.atomic.macroimpl.test
+package scalax.concurrent.atomic.macroimpl.test
 
-import scalax.atomic.macroimpl.FunctionInliner
+import scalax.concurrent.atomic.macroimpl.FunctionInliner
 import scala.language.experimental.macros
 
 object TestMacros {

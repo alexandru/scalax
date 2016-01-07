@@ -1,4 +1,4 @@
-package scalax.atomic.macroimpl
+package scalax.concurrent.atomic.macroimpl
 
 import scalax.concurrent.atomic.AtomicAny
 import scala.reflect.macros.blackbox.Context

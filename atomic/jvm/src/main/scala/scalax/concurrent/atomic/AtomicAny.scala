@@ -7,7 +7,7 @@ import scala.concurrent.TimeoutException
 import scala.concurrent.duration.FiniteDuration
 import java.util.concurrent.atomic.AtomicReference
 
-import scalax.atomic.macroimpl.AtomicAnyMacros
+import scalax.concurrent.atomic.macroimpl.AtomicAnyMacros
 
 
 final class AtomicAny[T] private (ref: AtomicReference[T]) extends BlockableAtomic[T] {

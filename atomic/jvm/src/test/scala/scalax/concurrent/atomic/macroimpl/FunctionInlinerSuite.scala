@@ -1,8 +1,8 @@
-package scalax.atomic.macroimpl
+package scalax.concurrent.atomic.macroimpl
 
 import minitest.SimpleTestSuite
 
-import scalax.atomic.macroimpl.test.TestMacros
+import scalax.concurrent.atomic.macroimpl.test.TestMacros
 
 
 object FunctionInlinerSuite extends SimpleTestSuite{
