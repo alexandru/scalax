@@ -32,43 +32,43 @@ final class AtomicShort private (ref: JavaAtomicInteger)
   def update(value: Short): Unit = set(value)
   def `:=`(value: Short): Unit = set(value)
 
-  @tailrec
-  def transformAndExtract[U](cb: (Short) => (U, Short)): U = {
-    val current = get
-    val (extract, update) = cb(current)
-    if (!compareAndSet(current, update))
-      transformAndExtract(cb)
-    else
-      extract
-  }
+//  @tailrec
+//  def transformAndExtract[U](cb: (Short) => (U, Short)): U = {
+//    val current = get
+//    val (extract, update) = cb(current)
+//    if (!compareAndSet(current, update))
+//      transformAndExtract(cb)
+//    else
+//      extract
+//  }
 
-  @tailrec
-  def transformAndGet(cb: (Short) => Short): Short = {
-    val current = get
-    val update = cb(current)
-    if (!compareAndSet(current, update))
-      transformAndGet(cb)
-    else
-      update
-  }
+//  @tailrec
+//  def transformAndGet(cb: (Short) => Short): Short = {
+//    val current = get
+//    val update = cb(current)
+//    if (!compareAndSet(current, update))
+//      transformAndGet(cb)
+//    else
+//      update
+//  }
 
-  @tailrec
-  def getAndTransform(cb: (Short) => Short): Short = {
-    val current = get
-    val update = cb(current)
-    if (!compareAndSet(current, update))
-      getAndTransform(cb)
-    else
-      current
-  }
+//  @tailrec
+//  def getAndTransform(cb: (Short) => Short): Short = {
+//    val current = get
+//    val update = cb(current)
+//    if (!compareAndSet(current, update))
+//      getAndTransform(cb)
+//    else
+//      current
+//  }
 
-  @tailrec
-  def transform(cb: (Short) => Short): Unit = {
-    val current = get
-    val update = cb(current)
-    if (!compareAndSet(current, update))
-      transform(cb)
-  }
+//  @tailrec
+//  def transform(cb: (Short) => Short): Unit = {
+//    val current = get
+//    val update = cb(current)
+//    if (!compareAndSet(current, update))
+//      transform(cb)
+//  }
 
   @tailrec
   @throws(classOf[InterruptedException])

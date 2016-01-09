@@ -33,43 +33,43 @@ final class AtomicFloat private (ref: JavaAtomicInteger)
 
   def `:=`(value: Float): Unit = set(value)
 
-  @tailrec
-  def transformAndExtract[U](cb: (Float) => (U, Float)): U = {
-    val current = get
-    val (extract, update) = cb(current)
-    if (!compareAndSet(current, update))
-      transformAndExtract(cb)
-    else
-      extract
-  }
+//  @tailrec
+//  def transformAndExtract[U](cb: (Float) => (U, Float)): U = {
+//    val current = get
+//    val (extract, update) = cb(current)
+//    if (!compareAndSet(current, update))
+//      transformAndExtract(cb)
+//    else
+//      extract
+//  }
 
-  @tailrec
-  def transformAndGet(cb: (Float) => Float): Float = {
-    val current = get
-    val update = cb(current)
-    if (!compareAndSet(current, update))
-      transformAndGet(cb)
-    else
-      update
-  }
+//  @tailrec
+//  def transformAndGet(cb: (Float) => Float): Float = {
+//    val current = get
+//    val update = cb(current)
+//    if (!compareAndSet(current, update))
+//      transformAndGet(cb)
+//    else
+//      update
+//  }
 
-  @tailrec
-  def getAndTransform(cb: (Float) => Float): Float = {
-    val current = get
-    val update = cb(current)
-    if (!compareAndSet(current, update))
-      getAndTransform(cb)
-    else
-      current
-  }
+//  @tailrec
+//  def getAndTransform(cb: (Float) => Float): Float = {
+//    val current = get
+//    val update = cb(current)
+//    if (!compareAndSet(current, update))
+//      getAndTransform(cb)
+//    else
+//      current
+//  }
 
-  @tailrec
-  def transform(cb: (Float) => Float): Unit = {
-    val current = get
-    val update = cb(current)
-    if (!compareAndSet(current, update))
-      transform(cb)
-  }
+//  @tailrec
+//  def transform(cb: (Float) => Float): Unit = {
+//    val current = get
+//    val update = cb(current)
+//    if (!compareAndSet(current, update))
+//      transform(cb)
+//  }
 
   @tailrec
   @throws(classOf[InterruptedException])

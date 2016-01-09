@@ -7,10 +7,14 @@ import scala.concurrent.TimeoutException
 import scala.concurrent.duration.FiniteDuration
 import java.util.concurrent.atomic.AtomicReference
 
-import scalax.concurrent.atomic.macroimpl.AtomicAnyMacros
+import scalax.concurrent.atomic.macroimpl.AtomicMacros
+
+//trait MacroEnabler[T] extends BlockableAtomic[T] {
+//  override def transformAndExtract[U](cb: (T) => (U, T)): U = throw new Exception
+//}
 
 
-final class AtomicAny[T] private (ref: AtomicReference[T]) extends BlockableAtomic[T] {
+final class AtomicAny[T] private (ref: AtomicReference[T]) extends BlockableAtomic[T] {//with MacroEnabler[T]{
   def get: T = ref.get()
 
   def set(update: T): Unit = {
@@ -33,46 +37,46 @@ final class AtomicAny[T] private (ref: AtomicReference[T]) extends BlockableAtom
     ref.lazySet(update)
   }
 
-  @tailrec
-  def transformAndExtract[U](cb: (T) => (U, T)): U = {
-    val current = get
-    val (extract, update) = cb(current)
-    if (!compareAndSet(current, update))
-      transformAndExtract(cb)
-    else
-      extract
-  }
+//  @tailrec
+//  def transformAndExtract[U](cb: (T) => (U, T)): U = {
+//    val current = get
+//    val (extract, update) = cb(current)
+//    if (!compareAndSet(current, update))
+//      transformAndExtract(cb)
+//    else
+//      extract
+//  }
 
-  def transformAndExtractMacro[U](cb: (T) => (U, T)): U = macro AtomicAnyMacros.transformAnExtractMacro[T,U]
+//  override def transformAndExtract[U](cb: (T) => (U, T)): U = macro AtomicAnyMacros.transformAnExtractMacro[T,U]
 
 
-    @tailrec
-  def transformAndGet(cb: (T) => T): T = {
-    val current = get
-    val update = cb(current)
-    if (!compareAndSet(current, update))
-      transformAndGet(cb)
-    else
-      update
-  }
+//    @tailrec
+//  def transformAndGet(cb: (T) => T): T = {
+//    val current = get
+//    val update = cb(current)
+//    if (!compareAndSet(current, update))
+//      transformAndGet(cb)
+//    else
+//      update
+//  }
 
-  @tailrec
-  def getAndTransform(cb: (T) => T): T = {
-    val current = get
-    val update = cb(current)
-    if (!compareAndSet(current, update))
-      getAndTransform(cb)
-    else
-      current
-  }
+//  @tailrec
+//  def getAndTransform(cb: (T) => T): T = {
+//    val current = get
+//    val update = cb(current)
+//    if (!compareAndSet(current, update))
+//      getAndTransform(cb)
+//    else
+//      current
+//  }
 
-  @tailrec
-  def transform(cb: (T) => T): Unit = {
-    val current = get
-    val update = cb(current)
-    if (!compareAndSet(current, update))
-      transform(cb)
-  }
+//  @tailrec
+//  def transform(cb: (T) => T): Unit = {
+//    val current = get
+//    val update = cb(current)
+//    if (!compareAndSet(current, update))
+//      transform(cb)
+//  }
 
   @tailrec
   @throws(classOf[InterruptedException])

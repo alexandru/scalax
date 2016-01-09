@@ -29,43 +29,43 @@ final class AtomicLong private (ref: JavaAtomicLong)
     ref.lazySet(update)
   }
 
-  @tailrec
-  def transformAndExtract[U](cb: (Long) => (U, Long)): U = {
-    val current = get
-    val (extract, update) = cb(current)
-    if (!compareAndSet(current, update))
-      transformAndExtract(cb)
-    else
-      extract
-  }
+//  @tailrec
+//  def transformAndExtract[U](cb: (Long) => (U, Long)): U = {
+//    val current = get
+//    val (extract, update) = cb(current)
+//    if (!compareAndSet(current, update))
+//      transformAndExtract(cb)
+//    else
+//      extract
+//  }
 
-  @tailrec
-  def transformAndGet(cb: (Long) => Long): Long = {
-    val current = get
-    val update = cb(current)
-    if (!compareAndSet(current, update))
-      transformAndGet(cb)
-    else
-      update
-  }
+//  @tailrec
+//  def transformAndGet(cb: (Long) => Long): Long = {
+//    val current = get
+//    val update = cb(current)
+//    if (!compareAndSet(current, update))
+//      transformAndGet(cb)
+//    else
+//      update
+//  }
 
-  @tailrec
-  def getAndTransform(cb: (Long) => Long): Long = {
-    val current = get
-    val update = cb(current)
-    if (!compareAndSet(current, update))
-      getAndTransform(cb)
-    else
-      current
-  }
+//  @tailrec
+//  def getAndTransform(cb: (Long) => Long): Long = {
+//    val current = get
+//    val update = cb(current)
+//    if (!compareAndSet(current, update))
+//      getAndTransform(cb)
+//    else
+//      current
+//  }
 
-  @tailrec
-  def transform(cb: (Long) => Long): Unit = {
-    val current = get
-    val update = cb(current)
-    if (!compareAndSet(current, update))
-      transform(cb)
-  }
+//  @tailrec
+//  def transform(cb: (Long) => Long): Unit = {
+//    val current = get
+//    val update = cb(current)
+//    if (!compareAndSet(current, update))
+//      transform(cb)
+//  }
 
   @tailrec
   @throws(classOf[InterruptedException])

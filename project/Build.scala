@@ -169,7 +169,12 @@ object Build extends SbtBuild {
           scalaxFutureJS, scalaxJS, scalaxJVM)
     )
 
+  lazy val scalaxAtomicMacrosJVM = project.in(file("atomic/macros"))
+    .settings(crossSettings: _*)
+    .settings(name := "scalax-atomic-macros")
+
   lazy val scalaxAtomicJVM = project.in(file("atomic/jvm"))
+    .dependsOn(scalaxAtomicMacrosJVM)
     .settings(crossSettings: _*)
     .settings(name := "scalax-atomic")
 

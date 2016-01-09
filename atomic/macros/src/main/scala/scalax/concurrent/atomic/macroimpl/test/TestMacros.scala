@@ -3,7 +3,7 @@ package scalax.concurrent.atomic.macroimpl.test
 import scalax.concurrent.atomic.macroimpl.FunctionInliner
 import scala.language.experimental.macros
 
-object TestMacros {
+object TestFunctionInlineMacros {
   import scala.reflect.macros.blackbox._
 
 
@@ -57,7 +57,6 @@ object TestMacros {
     val inlinedNoApplyFct = inliner(q"((x:Int, y:Int) => {val z = x + 1; y + z})(10, 20)")
     val resultNoApply = inlinedNoApplyFct equalsStructure q"{val z = 10 + 1; 20 + z}"
 
-
     val result:Boolean = List({
         val actual = inliner(q"((x:Int, y:Int) => {val z = x + 1; y + z})(10, 20)")
         val expected = q"{val z = 10 + 1; 20 + z}"
@@ -73,7 +72,8 @@ object TestMacros {
         if(!r)
           println(s"Expected ${expected} but got ${actual}")
         r
-      }).forall(x => x)
+      }
+    ).forall(x => x)
 
     q"$result"
   }

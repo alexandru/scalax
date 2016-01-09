@@ -33,43 +33,43 @@ final class AtomicDouble private (ref: JavaAtomicLong)
 
   def `:=`(value: Double): Unit = set(value)
 
-  @tailrec
-  def transformAndExtract[U](cb: (Double) => (U, Double)): U = {
-    val current = get
-    val (extract, update) = cb(current)
-    if (!compareAndSet(current, update))
-      transformAndExtract(cb)
-    else
-      extract
-  }
+//  @tailrec
+//  def transformAndExtract[U](cb: (Double) => (U, Double)): U = {
+//    val current = get
+//    val (extract, update) = cb(current)
+//    if (!compareAndSet(current, update))
+//      transformAndExtract(cb)
+//    else
+//      extract
+//  }
 
-  @tailrec
-  def transformAndGet(cb: (Double) => Double): Double = {
-    val current = get
-    val update = cb(current)
-    if (!compareAndSet(current, update))
-      transformAndGet(cb)
-    else
-      update
-  }
+//  @tailrec
+//  def transformAndGet(cb: (Double) => Double): Double = {
+//    val current = get
+//    val update = cb(current)
+//    if (!compareAndSet(current, update))
+//      transformAndGet(cb)
+//    else
+//      update
+//  }
 
-  @tailrec
-  def getAndTransform(cb: (Double) => Double): Double = {
-    val current = get
-    val update = cb(current)
-    if (!compareAndSet(current, update))
-      getAndTransform(cb)
-    else
-      current
-  }
+//  @tailrec
+//  def getAndTransform(cb: (Double) => Double): Double = {
+//    val current = get
+//    val update = cb(current)
+//    if (!compareAndSet(current, update))
+//      getAndTransform(cb)
+//    else
+//      current
+//  }
 
-  @tailrec
-  def transform(cb: (Double) => Double): Unit = {
-    val current = get
-    val update = cb(current)
-    if (!compareAndSet(current, update))
-      transform(cb)
-  }
+//  @tailrec
+//  def transform(cb: (Double) => Double): Unit = {
+//    val current = get
+//    val update = cb(current)
+//    if (!compareAndSet(current, update))
+//      transform(cb)
+//  }
 
   @tailrec
   @throws(classOf[InterruptedException])
