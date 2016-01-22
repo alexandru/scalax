@@ -155,6 +155,7 @@ object Build extends SbtBuild {
 
   lazy val scalax = project.in(file("."))
     .aggregate(
+      scalaxAtomicMacrosJVM,
       scalaxAtomicJVM, scalaxAtomicJS,
       scalaxCancelableJVM, scalaxCancelableJS,
       scalaxSchedulerJVM, scalaxSchedulerJS,
@@ -170,7 +171,7 @@ object Build extends SbtBuild {
     )
 
   lazy val scalaxAtomicMacrosJVM = project.in(file("atomic/macros"))
-    .settings(crossSettings: _*)
+    .settings(sharedSettings: _*)
     .settings(name := "scalax-atomic-macros")
 
   lazy val scalaxAtomicJVM = project.in(file("atomic/jvm"))
